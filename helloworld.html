@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>   
+    <script>
+    function httpGet(theUrl)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false 为同步请求
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+
+    </script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script type="text/javascript">
+        document.write("您的ip: "+ returnCitySN["cip"]+', 您来自'+returnCitySN["cname"]);
+    </script>
+    
+</head>
+<body>
+    <style>
+    body,
+    html,
+    #container {
+        overflow: hidden;
+        left:10pt;
+        top:10pt;
+        width: 450pt;
+        height: 400pt;
+        margin: 0;
+        float:left;
+        font-family: "微软雅黑";
+    }
+    #image {
+        position:absolute;
+        left:450pt;
+        top:0;
+        overflow: hidden;
+        margin: 0 auto;
+        width: 700pt;
+        height: 600pt;
+        margin: 0;
+        float:left;
+        font-family: "微软雅黑";
+    }
+    #subimg{
+        position : relative;
+        left : 150pt;
+        top : 50pt;
+        width : 100pt;
+        height:100pt;
+    }
+
+    </style>
+    
+    <div id = "container"></div>    
+    <div id = image>
+        <img id = myImage src="https://api.ixiaowai.cn/mcapi/mcapi.php" width = 700pt height= 400pt>
+        <div id = subimg>
+            <img src = "https://v1.jinrishici.com/all.svg" >
+        </div>
+    </div>
+    <div id = ip>
+        ip
+    </div>
+</body>
+</html>
+<script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=YTVtvt5Y2yKwMKmdfFhLc8CyvDGGlFGf""></script>
+<script src = "scriptfile/Weather.js"> </script>
+<script src = "scriptfile/map.js"> </script>
+
+<script>
+Center(returnCitySN["cname"]);
+map.addEventListener('click', function(e){
+    var pt = e.latlng;
+    geoc.getLocation(pt, function(rs){
+        var Status = getWeather(pt);
+        var addComp = rs.addressComponents;
+        
+        alert(
+                addComp.city + "\n"+
+                "天气：" + Status["text"] + "\n" +
+                "风向：" + Status["windDir"] + "\n" +
+                "风速：" + Status["windScale"] +"级\n"+
+                "气温：" + Status["temp"] + "摄氏度\n"+
+                "体感气温：" + Status["feelsLike"] +"摄氏度\n"
+                );
+        //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+    })
+})
+</script>
+
+
